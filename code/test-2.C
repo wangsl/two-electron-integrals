@@ -2,7 +2,6 @@
 #include <iomanip>
 #include <cassert>
 #include <cstring>
-#include <math.h>
 
 #include "rys_chebyshev_coeffs.h"
 

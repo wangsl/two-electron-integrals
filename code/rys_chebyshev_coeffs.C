@@ -173,7 +173,8 @@ inline void chebyshev_t(const int n, const double x, double *t)
 
 void RysChebyshev::calculate_rys_roots_and_weights(
   const int rys_order, const double x, 
-  double *roots, double *weights)
+  double *roots, double *weights,
+  const int need_u)
 {
   const GaussHermiteRootAndWeights *gh_parameger = GaussHermite::parameter(rys_order);
   if(x > gh_parameger->x_min) {
@@ -182,34 +183,40 @@ void RysChebyshev::calculate_rys_roots_and_weights(
       roots[k] = x2*gh_parameger->roots[k];
       weights[k] = x2*gh_parameger->weights[k];
     }
-    return;
+  } else {
+    const RysChebyshevCoeffs *coeffs = RysChebyshev::parameter(rys_order, x);
+    assert(coeffs && coeffs->rys_order == rys_order);
+
+    const int &chebyshev_order = coeffs->chebyshev_order;
+    const double &x_min = coeffs->x_min;
+    const double &x_max = coeffs->x_max;
+    
+    double *T = new double [chebyshev_order+1];
+    assert(T);
+    chebyshev_t(chebyshev_order, (2*x-x_min-x_max)/(x_max-x_min), T);
+
+    for(int k = 0; k < rys_order; k++) {
+      const double *r_coeffs = coeffs->roots_coefficients + k*(chebyshev_order+1);
+      const double *w_coeffs = coeffs->weights_coefficients + k*(chebyshev_order+1);
+      double &r_sum = roots[k];
+      double &w_sum = weights[k];
+      r_sum = 0.0;
+      w_sum = 0.0;
+      for(int i = 0; i < chebyshev_order+1; i++) {
+        r_sum += r_coeffs[i]*T[i];
+        w_sum += w_coeffs[i]*T[i];
+      }
+    }
+    if(T) { delete [] T; T = 0; }
   }
-
-  const RysChebyshevCoeffs *coeffs = RysChebyshev::parameter(rys_order, x);
-  assert(coeffs && coeffs->rys_order == rys_order);
-
-  const int &chebyshev_order = coeffs->chebyshev_order;
-  const double &x_min = coeffs->x_min;
-  const double &x_max = coeffs->x_max;
   
-  double *T = new double [chebyshev_order+1];
-  assert(T);
-  chebyshev_t(chebyshev_order, (2*x-x_min-x_max)/(x_max-x_min), T);
-
-  for(int k = 0; k < rys_order; k++) {
-    const double *r_coeffs = coeffs->roots_coefficients + k*(chebyshev_order+1);
-    const double *w_coeffs = coeffs->weights_coefficients + k*(chebyshev_order+1);
-    double &r_sum = roots[k];
-    double &w_sum = weights[k];
-    r_sum = 0.0;
-    w_sum = 0.0;
-    for(int i = 0; i < chebyshev_order+1; i++) {
-      r_sum += r_coeffs[i]*T[i];
-      w_sum += w_coeffs[i]*T[i];
+  if(need_u) {
+    for(int k = 0; k < rys_order; k++) {
+      double &t = roots[k];
+      const double t_sq = t*t;
+      roots[k] = t_sq/(1.0-t_sq);
     }
   }
-
-  if(T) { delete [] T; T = 0; }
 }                                                    
 
 void RysChebyshev::test()
@@ -226,14 +233,13 @@ void RysChebyshev::test()
 
   std::cout << std::endl;
   for(double x = 0.0; x < 120; x += 0.1) {
-    RysChebyshev::calculate_rys_roots_and_weights(rys_order, x, roots, weights);
+    RysChebyshev::calculate_rys_roots_and_weights(rys_order, x, roots, weights, 1);
 
     for(int k = 0; k < rys_order; k++) {
-      const double t2 = roots[k]*roots[k];
       std::cout << " " 
                 << k << " "   
                 << std::fixed << std::setprecision(2) << x << " " 
-                << std::scientific << std::setprecision(20) << roots[k] << " " << weights[k] << " " << t2/(1.0-t2)
+                << std::scientific << std::setprecision(20) << roots[k] << " " << weights[k]
                 << std::endl;
     }
     std::cout << std::endl;

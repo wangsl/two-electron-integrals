@@ -148,7 +148,9 @@ namespace RysChebyshev {
   static RysChebyshevCoeffs parameters[120];
   void setup_parameters();
   const RysChebyshevCoeffs *parameter(const int n_rys, const double x);
-  void calculate_rys_roots_and_weights(const int n_rys, const double x, double *roots, double *weights);
+  void calculate_rys_roots_and_weights(const int n_rys, const double x, 
+                                      double *roots, double *weights, 
+                                      const int need_u = 1);
   void test();
 };
 
