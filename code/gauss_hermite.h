@@ -12,6 +12,7 @@ struct GaussHermiteRootAndWeights {
 };
 
 namespace GaussHermite {
+  static int has_setup_parameters = 0;
   static GaussHermiteRootAndWeights parameters[20];
   void setup_parameters();
   const GaussHermiteRootAndWeights *parameter(const int n_order);

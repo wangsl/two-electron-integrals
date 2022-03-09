@@ -144,9 +144,11 @@ struct RysChebyshevCoeffs {
 };
 
 namespace RysChebyshev {
+  static int has_setup_parameters = 0;
   static RysChebyshevCoeffs parameters[120];
   void setup_parameters();
   const RysChebyshevCoeffs *parameter(const int n_rys, const double x);
+  void calculate_rys_roots_and_weights(const int n_rys, const double x, double *roots, double *weights);
 };
 
 #endif /* RYS_CHEBYSHEV_COEFFS_H */
