@@ -12,7 +12,7 @@ int main()
   RysChebyshev::setup_parameters();
   GaussHermite::setup_parameters();
   
-  const int rys_order = 10;
+  const int rys_order = 12;
 
   double *roots = new double [rys_order];
   assert(roots);
