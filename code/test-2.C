@@ -5,7 +5,6 @@
 #include <math.h>
 
 #include "rys_chebyshev_coeffs.h"
-#include "gauss_hermite.h"
 
 int main()
 {
