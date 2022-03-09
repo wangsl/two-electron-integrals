@@ -1,8 +1,8 @@
 
 # $Id: Makefile,v 1.1 2005/07/18 20:32:28 wangsl Exp wangsl $
 
-.DEFAULT: .f .for .c .C .cpp .cc .f90
-.SUFFIXES: .f .for .c .C .cpp .cc .f90
+.DEFAULT: .f .F .for .c .C .cpp .cc .f90 .F90
+.SUFFIXES: .f .F .for .c .C .cpp .cc .f90 .F90
 
 O = .
 
@@ -41,9 +41,9 @@ $(O)/%.o: %.f90
 	cd $(O) ; $(F90) $(FFLAGS) -c $<
 
 clean:
-	rm -f *.o $(EXENAME) *.mod *io.C depend
+	rm -f *.o *~ $(EXENAME) *.mod *io.C depend
 
-.PRECIOUS: %io.C %.C %.c %.f %.h $(O)/%.o
+.PRECIOUS: %io.C %.C %.c %.f %.F %.h $(O)/%.o
 
 depend :
 	$(CXX) $(CXXFLAGS) -MM *.[cC] | perl dep.pl > $@
