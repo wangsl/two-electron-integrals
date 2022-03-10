@@ -4,6 +4,7 @@
 #include <cmath>
 #include "gauss_hermite.h"
 #include "rys_chebyshev_coeffs.h"
+#include "fort.h"
 
 #define RYS_CHEBYSHEV(X) \
   { X.rys_order, X.chebyshev_order, \
@@ -176,6 +177,9 @@ void RysChebyshev::calculate_rys_roots_and_weights(
   double *roots, double *weights,
   const int need_u)
 {
+  RysChebyshev::setup_parameters();
+  GaussHermite::setup_parameters();
+
   const GaussHermiteRootAndWeights *gh_parameger = GaussHermite::parameter(rys_order);
   if(x > gh_parameger->x_min) {
     const double x2 = 1.0/sqrt(x);
@@ -209,7 +213,7 @@ void RysChebyshev::calculate_rys_roots_and_weights(
     }
     if(T) { delete [] T; T = 0; }
   }
-  
+
   if(need_u) {
     for(int k = 0; k < rys_order; k++) {
       double &t = roots[k];
@@ -221,9 +225,6 @@ void RysChebyshev::calculate_rys_roots_and_weights(
 
 void RysChebyshev::test()
 {
-  RysChebyshev::setup_parameters();
-  GaussHermite::setup_parameters();
-  
   const int rys_order = 5;
 
   double *roots = new double [rys_order];
@@ -233,7 +234,7 @@ void RysChebyshev::test()
 
   std::cout << std::endl;
   for(double x = 0.0; x < 120; x += 0.1) {
-    RysChebyshev::calculate_rys_roots_and_weights(rys_order, x, roots, weights, 1);
+    RysChebyshev::calculate_rys_roots_and_weights(rys_order, x, roots, weights, 0);
 
     for(int k = 0; k < rys_order; k++) {
       std::cout << " " 
@@ -247,4 +248,15 @@ void RysChebyshev::test()
 
   if(roots) { delete [] roots; roots = 0; }
   if(weights) { delete [] weights; weights = 0; }
+}
+
+// Fortran version: CalculateRysRootsAndWeights
+extern "C" {
+  void FORT(calculaterysrootsandweights)(const int &rys_order, const double &x, 
+                                        double *roots, double *weights, 
+                                        const int &need_u)
+  {
+    RysChebyshev::calculate_rys_roots_and_weights(rys_order, x, roots, weights, need_u);
+    std::cout.flush();
+  }
 }

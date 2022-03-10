@@ -16,11 +16,13 @@ FFLAGS = -O3 -fPIC -fopenmp
 
 Link = $(CCC) $(CFLAGS) 
 
-LIBS = 
+LIBS = -lgfortran
 
 EXENAME = test.x
 
-OBJS = $(O)/test-2.o $(O)/gauss_hermite.o  $(O)/rys_chebyshev_coeffs.o  
+OBJS =  $(O)/rys-test.o $(O)/gauss_hermite.o  $(O)/rys_chebyshev_coeffs.o  
+
+#$(O)/test-2.o
 
 $(EXENAME) : $(OBJS) 
 	$(Link) -o $(EXENAME) $(OBJS) $(LIBS)
