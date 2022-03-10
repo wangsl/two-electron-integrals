@@ -152,6 +152,7 @@ namespace RysChebyshev {
                                       double *roots, double *weights, 
                                       const int need_u = 1);
   void test();
+  void initialize();
 };
 
 #endif /* RYS_CHEBYSHEV_COEFFS_H */

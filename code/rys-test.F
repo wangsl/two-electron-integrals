@@ -7,6 +7,8 @@
       Real*8 r(N), w(N)
       Real*8 x
 
+      Call RysChebyshevInitialize
+      
       x = 0.0D0
       Do while(x <= 10.000001D0)
         Call CalculateRysRootsAndWeights(n, x, r, w, 0)

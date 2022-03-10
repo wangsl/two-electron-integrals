@@ -20,9 +20,9 @@ LIBS = -lgfortran
 
 EXENAME = test.x
 
-OBJS = $(O)/rys-test.o $(O)/gauss_hermite.o  $(O)/rys_chebyshev_coeffs.o  
+OBJS = $(O)/test-2.o $(O)/gauss_hermite.o  $(O)/rys_chebyshev_coeffs.o  
 
-#$(O)/test-2.o
+#$(O)/test-2.o $(O)/rys-test.o
 
 $(EXENAME) : $(OBJS) 
 	$(Link) -o $(EXENAME) $(OBJS) $(LIBS)

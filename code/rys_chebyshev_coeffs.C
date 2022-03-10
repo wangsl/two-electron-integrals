@@ -158,6 +158,12 @@ const RysChebyshevCoeffs *RysChebyshev::parameter(const int n_rys, const double 
   return 0;
 }
 
+void RysChebyshev::initialize()
+{
+  RysChebyshev::setup_parameters();
+  GaussHermite::setup_parameters();
+}
+
 inline void chebyshev_t(const int n, const double x, double *t)
 {
   assert(-1.0 <= x && x <= 1.0);
@@ -177,8 +183,7 @@ void RysChebyshev::calculate_rys_roots_and_weights(
   double *roots, double *weights,
   const int need_u)
 {
-  RysChebyshev::setup_parameters();
-  GaussHermite::setup_parameters();
+  initialize();
 
   const GaussHermiteRootAndWeights *gh_parameger = GaussHermite::parameter(rys_order);
   if(x > gh_parameger->x_min) {
@@ -271,8 +276,9 @@ void RysChebyshev::test()
   if(weights) { delete [] weights; weights = 0; }
 }
 
-// Fortran version: CalculateRysRootsAndWeights
+// Fortran versions
 extern "C" {
+  // CalculateRysRootsAndWeights
   void FORT(calculaterysrootsandweights)(const int &rys_order, const double &x, 
                                         double *roots, double *weights, 
                                         const int &need_u)
@@ -280,4 +286,7 @@ extern "C" {
     RysChebyshev::calculate_rys_roots_and_weights(rys_order, x, roots, weights, need_u);
     std::cout.flush();
   }
+
+  // RysChebyshevInitialize
+  void FORT(ryschebyshevinitialize)() { RysChebyshev::initialize(); }
 }
