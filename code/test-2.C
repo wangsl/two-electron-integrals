@@ -5,15 +5,22 @@
 
 #include "rys_chebyshev_coeffs.h"
 #include "rys_utils.h"
+#include "primitive_gaussian.h"
 
 int main()
 {
-  //RysChebyshev::test();
+  std::cout.precision(14);
 
-  for(int n = 0; n < 30; n++)
-    std::cout << " " << n << " " << fact(n) << std::endl;
+  const double x = 0.7;
+  const double y = 2.1;
+  const double z = 1.2;
+  const double alpha = 0.1234;
+  const int l = 0;
+  const int m = 0;
+  const int n = 0;
 
-  std::cout << binomial(12, 4) << std::endl;
+  const PrimitiveGaussian p(l, m, n, alpha, x, y, z);
 
+  std::cout << p << std::endl;
   return 0;
 }
