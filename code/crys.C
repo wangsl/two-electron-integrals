@@ -27,7 +27,6 @@
 #include <cstdio>
 
 #include "crys2.h"
-#include "rys_chebyshev_coeffs.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -82,7 +81,7 @@ static double coulomb_repulsion(double xa,double ya,double za,double norma,
 
   X = rpq2*rho;
 
-  //Roots(norder,X); /* Puts currect roots/weights in "common" */
+  // Roots(norder,X); /* Puts currect roots/weights in "common" */
   RysChebyshev::calculate_rys_roots_and_weights(norder, X, roots, weights);
 
   sum = 0.;
@@ -1512,7 +1511,7 @@ static void Recur(double t, int i, int j, int k, int l,
     for (a=1; a<n+1; a++){
       G[a][1] = a*B00*G[a-1][0] + Cp*G[a][0];
       for (b=2; b<m+1; b++)
-	G[a][b] = B1p*(b-1)*G[a][b-2] + a*B00*G[a-1][b-1] + Cp*G[a][b-1];
+        G[a][b] = B1p*(b-1)*G[a][b-2] + a*B00*G[a-1][b-1] + Cp*G[a][b-1];
     }
 
     return;
@@ -1552,7 +1551,7 @@ static int fact(int n){
   return n*fact(n-1);
 }
 
-
+// Shenglong Wang added on 3/14/2022
 
 double coulomb_repulsion(const PrimitiveGaussian &p1, const PrimitiveGaussian &p2,
                          const PrimitiveGaussian &p3, const PrimitiveGaussian &p4)

@@ -9,6 +9,9 @@
 #include "rys_2e_integral.h"
 #include "crys2.h"
 
+#include "fort.h"
+extern "C" void FORT(fmt)(double *fm, const double &x, const int &n);
+
 int main()
 {
   std::cout.precision(16);
@@ -33,6 +36,19 @@ int main()
   std::cout << " " << coulomb_repulsion(s1, s2, p1, s3) << std::endl;
   std::cout << " " << coulomb_repulsion(s1, s2, p2, s3) << std::endl;
   std::cout << " " << coulomb_repulsion(s1, s2, p3, s3) << std::endl;
+
+  const int m = 20;
+  double *fm = new double [m];
+  assert(fm);
+  const double x = 1.0;
+
+  FORT(fmt)(fm, x, m);
+
+  std::cout << std::endl;
+  for(int i = 0; i < m; i++)
+    std::cout << " " << i << " " << fm[i] << std::endl;
+
+  if(fm) { delete [] fm; fm = 0; }
 
   return 0;
 }

@@ -24,7 +24,8 @@ OBJS = $(O)/test-2.o $(O)/gauss_hermite.o  $(O)/rys_chebyshev_coeffs.o \
 	$(O)/indent.o  $(O)/die.o \
 	$(O)/primitive_gaussian.o \
 	$(O)/rys_2e_integral.o  $(O)/rys_2e_integralio.o \
-	$(O)/crys.o
+	$(O)/crys.o  \
+	$(O)/fmt.o  #$(O)/fmtgen.o $(O)/gfloat.o $(O)/gamgen.o $(O)/fmtset.o
 
 #$(O)/test-2.o $(O)/rys-test.o
 

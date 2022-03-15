@@ -221,7 +221,7 @@ void RysChebyshev::calculate_rys_roots_and_weights(
 
   if(need_u) {
     for(int k = 0; k < rys_order; k++) {
-      double &t = roots[k];
+      const double &t = roots[k];
       const double t_sq = t*t;
       roots[k] = t_sq/(1.0-t_sq);
     }
