@@ -7,6 +7,4 @@ a.out
 *.log
 depend
 .vscode
-crys.C 
-crys.h
 note.txt
