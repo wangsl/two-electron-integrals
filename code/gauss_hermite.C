@@ -11,7 +11,7 @@ void GaussHermite::setup_parameters()
 {
   if(has_setup_parameters) return;
 
-  std::cout << " GaussHermite::setup_parameters" << std::endl;
+  // std::cout << " GaussHermite::setup_parameters" << std::endl;
 
   has_setup_parameters = 1;
 
