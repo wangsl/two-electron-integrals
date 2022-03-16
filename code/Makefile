@@ -10,13 +10,13 @@ F77 = gfortran
 CC = gcc
 CCC = g++
 
-CFLAGS = -O3 -fPIC -fopenmp
+CFLAGS = -O3 -fPIC -fopenmp -I/home/wang/PyQuante-1.6.5/libint-release-1-1-4/include
 
 FFLAGS = -O3 -fPIC -fopenmp
 
 Link = $(CCC) $(CFLAGS) 
 
-LIBS = -lgfortran
+LIBS = -L/home/wang/PyQuante-1.6.5/libint-release-1-1-4/lib -lint -lgfortran
 
 EXENAME = test.x
 
@@ -25,7 +25,7 @@ OBJS = $(O)/test-2.o $(O)/gauss_hermite.o  $(O)/rys_chebyshev_coeffs.o \
 	$(O)/primitive_gaussian.o \
 	$(O)/rys_2e_integral.o  $(O)/rys_2e_integralio.o \
 	$(O)/crys.o  \
-	$(O)/fmt.o  #$(O)/fmtgen.o $(O)/gfloat.o $(O)/gamgen.o $(O)/fmtset.o
+	$(O)/fmt.o  $(O)/libint-test.o #$(O)/fmtgen.o $(O)/gfloat.o $(O)/gamgen.o $(O)/fmtset.o
 
 #$(O)/test-2.o $(O)/rys-test.o
 
