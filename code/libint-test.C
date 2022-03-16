@@ -136,9 +136,9 @@ void libint_test()
 
   const double factor = 1.0/3.0;
   for(int i = 0; i < 3; i++)
-    std::cout << " * " << i << " " << a[index(0, 0, i, 0, 1, 1, 3, 1)]*factor << std::endl;
+    std::cout << " " << a[index(0, 0, i, 0, 1, 1, 3, 1)]*factor << std::endl;
 
-  //if(data_array) { delete [] data_array; data_array = 0; }
+  // if(data_array) { delete [] data_array; data_array = 0; }
   if(fm) { delete [] fm; fm = 0; }
   free_libint(&abcd);
 }
