@@ -81,8 +81,8 @@ static double coulomb_repulsion(double xa,double ya,double za,double norma,
 
   X = rpq2*rho;
 
-  // Roots(norder,X); /* Puts currect roots/weights in "common" */
-  RysChebyshev::calculate_rys_roots_and_weights(norder, X, roots, weights);
+  Roots(norder,X); /* Puts currect roots/weights in "common" */
+  //RysChebyshev::calculate_rys_roots_and_weights(norder, X, roots, weights);
 
   sum = 0.;
   for (i=0; i<norder; i++){

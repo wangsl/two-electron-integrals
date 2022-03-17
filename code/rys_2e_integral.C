@@ -5,11 +5,11 @@
 #include "rys_chebyshev_coeffs.h"
 #include "fns.h"
 
-Rys2EIntegral::Rys2EIntegral(const PrimitiveGaussian &p0_, const PrimitiveGaussian &p1_,
-                             const PrimitiveGaussian &p2_, const PrimitiveGaussian &p3_) :
-p0(p0_), p1(p1_), p2(p2_), p3(p3_) 
+Rys2EIntegral::Rys2EIntegral(
+  const PrimitiveGaussian &p0_, const PrimitiveGaussian &p1_,
+  const PrimitiveGaussian &p2_, const PrimitiveGaussian &p3_) :
+  p0(p0_), p1(p1_), p2(p2_), p3(p3_) 
 { 
-  G = 0;
   const int n = max(max(p0.l+p1.l, p0.m+p1.m), p0.n+p1.n) + 1;
   const int m = max(max(p2.l+p3.l, p2.m+p3.m), p2.n+p3.n) + 1;
   G = new double *[n]; assert(G);
@@ -28,8 +28,11 @@ Rys2EIntegral::~Rys2EIntegral()
   if(G) { delete [] G; G = 0; }
  }
 
-void Rys2EIntegral::recur_factors_gamess(const double t, const double A, const double B,
-      const double Px, const double Qx, const double xi, const double xk)
+void Rys2EIntegral::recur_factors_gamess(
+  const double t, 
+  const double A, const double B,
+  const double Px, const double Qx, 
+  const double xi, const double xk)
 {
   /* Analogous versions taken from Gamess source code */
   const double fff = t/(A+B)/(1+t);
@@ -74,7 +77,9 @@ void Rys2EIntegral::recur(const double t,
   }
 }
 
-double Rys2EIntegral::shift(const int i, const int j, const int k, const int l, const double xij, const double xkl)
+double Rys2EIntegral::shift(
+  const int i, const int j, const int k, const int l, 
+  const double xij, const double xkl)
 {
 /* Compute and  output I(i,j,k,l) from I(i+j,0,k+l,0) (G) */
   /*  xij = xi-xj, xkl = xk-xl */
@@ -88,7 +93,8 @@ double Rys2EIntegral::shift(const int i, const int j, const int k, const int l, 
   return ijkl;
 }
 
-double Rys2EIntegral::int1d(const double t,
+double Rys2EIntegral::int1d(
+  const double t,
   const int ix, const int jx, const int kx, const int lx,
   const double xi, const double xj, const double xk, const double xl,
   const double alphai, const double alphaj, const double alphak, const double alphal)
@@ -131,7 +137,6 @@ double Rys2EIntegral::coulomb_repulsion()
   double *weights = new double [norder];
   assert(weights);
 
-  // Roots(norder,X); /* Puts currect roots/weights in "common" */
   RysChebyshev::calculate_rys_roots_and_weights(norder, X, roots, weights);
 
   double sum = 0.0;
@@ -140,7 +145,7 @@ double Rys2EIntegral::coulomb_repulsion()
     const double Ix = int1d(t, p0.l, p1.l, p2.l, p3.l, p0.x, p1.x, p2.x, p3.x, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
     const double Iy = int1d(t, p0.m, p1.m, p2.m, p3.m, p0.y, p1.y, p2.y, p3.y, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
     const double Iz = int1d(t, p0.n, p1.n, p2.n, p3.n, p0.z, p1.z, p2.z, p3.z, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
-    sum = sum + Ix*Iy*Iz*weights[i]; /* ABD eq 5 & 9 */
+    sum = sum + Ix*Iy*Iz*weights[i];
   }
 
   if(roots) { delete [] roots; roots = 0; }

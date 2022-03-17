@@ -25,6 +25,11 @@ int main()
   const PrimitiveGaussian p2(0, 1, 0, 0.2256, 0.8, 2.04, 1.0);
   const PrimitiveGaussian p3(0, 0, 1, 0.2256, 0.8, 2.04, 1.0);
 
+  const PrimitiveGaussian f1(1, 1, 1, 0.2256, 0.8, 2.04, 1.0);
+  const PrimitiveGaussian f2(2, 1, 0, 0.1234, 0.7, 2.1, 1.2);
+  const PrimitiveGaussian f3(1, 2, 0, 0.345, -1.0, 1.9, 1.0);
+  const PrimitiveGaussian f4(0, 3, 0, 0.1245, 0.8, 2.02, 0.8);
+
   std::cout << s1 << std::endl;
   std::cout << s2 << std::endl;
   std::cout << s3 << std::endl;
@@ -36,6 +41,7 @@ int main()
     << " Rys: " << coulomb_repulsion(s1, s2, p1, s3) << std::endl
     << " Rys: " << coulomb_repulsion(s1, s2, p2, s3) << std::endl
     << " Rys: " << coulomb_repulsion(s1, s2, p3, s3) << std::endl
+    << " Rys: " << coulomb_repulsion(f1, f2, f3, f4) << std::endl
     << std::endl;
 
   libint_test();
@@ -51,6 +57,10 @@ int main()
 
     Rys2EIntegral rys2e_3(s1, s2, p3, s3);
     std::cout << " myRys: " << rys2e_3.coulomb_repulsion() << std::endl;
+
+    Rys2EIntegral rys2e_4(f1, f2, f3, f4);
+    std::cout << " myRys: " << rys2e_4.coulomb_repulsion() << std::endl;
   }
+
   return 0;
 }
