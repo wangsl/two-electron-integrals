@@ -178,6 +178,9 @@ inline void chebyshev_t(const int n, const double x, double *t)
     t[i] = two_x*t[i-1] - t[i-2];
 }
 
+// Numerical Methods for Special Functions by Amparo Gil, Javier Segura, and Nico Temme
+// Page 75 Algorithm 3.1. Clenshaw’s method for a Chebyshev sum
+
 void RysChebyshev::calculate_rys_roots_and_weights(
   const int rys_order, const double x, 
   double *roots, double *weights,
@@ -259,9 +262,8 @@ void RysChebyshev::test()
   assert(weights);
 
   std::cout << std::endl;
-  for(double x = 0.0; x < 120; x += 0.1) {
+  for(double x = 0.0; x < 120.1; x += 5.0) {
     RysChebyshev::calculate_rys_roots_and_weights(rys_order, x, roots, weights, 0);
-
     for(int k = 0; k < rys_order; k++) {
       std::cout << " " 
                 << k << " "   

@@ -35,11 +35,14 @@ int main()
   Rys2EIntegral rys_1(s1, s2, p1, p2);
   std::cout << rys_1 << std::endl;
 
-  std::cout << " " << coulomb_repulsion(s1, s2, p1, s3) << std::endl;
-  std::cout << " " << coulomb_repulsion(s1, s2, p2, s3) << std::endl;
-  std::cout << " " << coulomb_repulsion(s1, s2, p3, s3) << std::endl;
+  std::cout << std::endl
+    << " Rys: " << coulomb_repulsion(s1, s2, p1, s3) << std::endl
+    << " Rys: " << coulomb_repulsion(s1, s2, p2, s3) << std::endl
+    << " Rys: " << coulomb_repulsion(s1, s2, p3, s3) << std::endl
+    << std::endl;
 
   libint_test();
+  std::cout << std::endl;
 
   return 0;
 }
