@@ -13,17 +13,20 @@ public:
   Rys2EIntegral(const PrimitiveGaussian &p0_, const PrimitiveGaussian &p1_,
                 const PrimitiveGaussian &p2_, const PrimitiveGaussian &p3_);
 
+  ~Rys2EIntegral();
+
   const PrimitiveGaussian &p0; // out
   const PrimitiveGaussian &p1; // out 
   const PrimitiveGaussian &p2; // out 
   const PrimitiveGaussian &p3; // out
 
-private:
+  double coulomb_repulsion();
 
+private:
+  Rys2EIntegral(const Rys2EIntegral &);
+  
   double B00, B1, B1p, C, Cp;
-  double G[MAX_RYS_ROOT][MAX_RYS_ROOT];
-  double roots[MAX_RYS_ROOT];
-  double weights[MAX_RYS_ROOT];
+  double **G;
 
   void recur_factors_gamess(const double t, const double A, const double B,
                             const double Px, const double Qx, const double xi, const double xk);

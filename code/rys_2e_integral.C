@@ -2,11 +2,31 @@
 #include <cmath>
 #include "rys_2e_integral.h"
 #include "rys_utils.h"
+#include "rys_chebyshev_coeffs.h"
+#include "fns.h"
 
 Rys2EIntegral::Rys2EIntegral(const PrimitiveGaussian &p0_, const PrimitiveGaussian &p1_,
                              const PrimitiveGaussian &p2_, const PrimitiveGaussian &p3_) :
 p0(p0_), p1(p1_), p2(p2_), p3(p3_) 
-{ }
+{ 
+  G = 0;
+  const int n = max(max(p0.l+p1.l, p0.m+p1.m), p0.n+p1.n) + 1;
+  const int m = max(max(p2.l+p3.l, p2.m+p3.m), p2.n+p3.n) + 1;
+  G = new double *[n]; assert(G);
+  for(int i = 0; i < n; i++) {
+    G[i] = new double [m];
+    assert(G[i]);
+  }
+}
+
+Rys2EIntegral::~Rys2EIntegral()
+{
+  const int n = max(max(p0.l+p1.l, p0.m+p1.m), p0.n+p1.n) + 1;
+  const int m = max(max(p2.l+p3.l, p2.m+p3.m), p2.n+p3.n) + 1;
+  for(int i = 0; i < n; i++)
+    if(G[i]) { delete G[i]; G[i] = 0; }
+  if(G) { delete [] G; G = 0; }
+ }
 
 void Rys2EIntegral::recur_factors_gamess(const double t, const double A, const double B,
       const double Px, const double Qx, const double xi, const double xk)
@@ -75,4 +95,56 @@ double Rys2EIntegral::int1d(const double t,
 {
   recur(t, ix, jx, kx, lx, xi, xj, xk, xl, alphai, alphaj, alphak, alphal);
   return shift(ix, jx, kx, lx, xi-xj, xk-xl);
+}
+
+inline double product_center_1D(double alphaa, double xa, double alphab, double xb)
+{ return (alphaa*xa+alphab*xb)/(alphaa+alphab); }
+
+inline double dist2(double x1, double y1, double z1, double x2, double y2, double z2)
+{ return (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)+(z1-z2)*(z1-z2); }
+
+double Rys2EIntegral::coulomb_repulsion()
+{
+  const int norder = (
+    p0.l + p0.m + p0.n + 
+    p1.l + p1.m + p1.n + 
+    p2.l + p2.m + p2.n + 
+    p3.l + p3.m + p3.n)/2 + 1;
+
+  const double A = p0.alpha + p1.alpha;
+  const double B = p2.alpha + p3.alpha;
+  const double rho = A*B/(A+B);
+
+  const double xp = product_center_1D(p0.alpha, p0.x, p1.alpha, p1.x);
+  const double yp = product_center_1D(p0.alpha, p0.y, p1.alpha, p1.y);
+  const double zp = product_center_1D(p0.alpha, p0.z, p1.alpha, p1.z);
+  const double xq = product_center_1D(p2.alpha, p2.x, p3.alpha, p3.x);
+  const double yq = product_center_1D(p2.alpha, p2.y, p3.alpha, p3.y);
+  const double zq = product_center_1D(p2.alpha, p2.z, p3.alpha, p3.z);
+  const double rpq2 = dist2(xp,yp,zp,xq,yq,zq);
+
+  const double X = rpq2*rho;
+
+  double *roots = new double [norder];
+  assert(roots);
+
+  double *weights = new double [norder];
+  assert(weights);
+
+  // Roots(norder,X); /* Puts currect roots/weights in "common" */
+  RysChebyshev::calculate_rys_roots_and_weights(norder, X, roots, weights);
+
+  double sum = 0.0;
+  for(int i = 0; i < norder; i++) {
+    const double &t = roots[i];
+    const double Ix = int1d(t, p0.l, p1.l, p2.l, p3.l, p0.x, p1.x, p2.x, p3.x, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
+    const double Iy = int1d(t, p0.m, p1.m, p2.m, p3.m, p0.y, p1.y, p2.y, p3.y, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
+    const double Iz = int1d(t, p0.n, p1.n, p2.n, p3.n, p0.z, p1.z, p2.z, p3.z, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
+    sum = sum + Ix*Iy*Iz*weights[i]; /* ABD eq 5 & 9 */
+  }
+
+  if(roots) { delete [] roots; roots = 0; }
+  if(weights) { delete [] weights; weights = 0; }
+
+  return 2*sqrt(rho/M_PI) * p0.norm*p1.norm*p2.norm*p3.norm * sum; /* ABD eq 5 & 9 */
 }

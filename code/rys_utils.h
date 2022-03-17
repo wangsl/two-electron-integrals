@@ -3,9 +3,11 @@
 
 #include <cassert>
 #include <cmath>
+#include "fns.h"
 
-inline double sq(const double x) { return x*x; }
+//inline double sq(const double x) { return x*x; }
 
+/*
 inline long int factorial(const int n)
 {
   const int n_max = 21;
@@ -30,6 +32,7 @@ inline long int double_factorial(const int n)
       1371195958099968000, 6332659870762850625 };
   return n <= 1 ? 1 : predefinds[n];
 }
+*/
 
 inline double distance_sq(const double x1, const double y1, const double z1,
                           const double x2, const double y2, const double z2 )

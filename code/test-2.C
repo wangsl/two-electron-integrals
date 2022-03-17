@@ -32,9 +32,6 @@ int main()
   std::cout << p2 << std::endl;
   std::cout << p3 << std::endl;
 
-  Rys2EIntegral rys_1(s1, s2, p1, p2);
-  std::cout << rys_1 << std::endl;
-
   std::cout << std::endl
     << " Rys: " << coulomb_repulsion(s1, s2, p1, s3) << std::endl
     << " Rys: " << coulomb_repulsion(s1, s2, p2, s3) << std::endl
@@ -44,5 +41,16 @@ int main()
   libint_test();
   std::cout << std::endl;
 
+  for(int i = 0; i < 1; i++) {
+    std::cout << std::endl << " " << i << std::endl;
+    Rys2EIntegral rys2e_1(s1, s2, p1, s3);
+    std::cout << " myRys: " << rys2e_1.coulomb_repulsion() << std::endl;
+
+    Rys2EIntegral rys2e_2(s1, s2, p2, s3);
+    std::cout << " myRys: " << rys2e_2.coulomb_repulsion() << std::endl;
+
+    Rys2EIntegral rys2e_3(s1, s2, p3, s3);
+    std::cout << " myRys: " << rys2e_3.coulomb_repulsion() << std::endl;
+  }
   return 0;
 }
