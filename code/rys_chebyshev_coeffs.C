@@ -281,9 +281,10 @@ void RysChebyshev::test()
 // Fortran versions
 extern "C" {
   // CalculateRysRootsAndWeights
-  void FORT(calculaterysrootsandweights)(const int &rys_order, const double &x, 
-                                        double *roots, double *weights, 
-                                        const int &need_u)
+  void FORT(calculaterysrootsandweights)(
+    const int &rys_order, const double &x, 
+    double *roots, double *weights, 
+    const int &need_u)
   {
     RysChebyshev::calculate_rys_roots_and_weights(rys_order, x, roots, weights, need_u);
     std::cout.flush();

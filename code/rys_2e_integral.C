@@ -43,11 +43,12 @@ void Rys2EIntegral::recur_factors_gamess(
   Cp = (Qx-xk)/(1+t) + (B*(Qx-xk)+A*(Px-xk))*fff;
 }
 
-void Rys2EIntegral::recur(const double t, 
-    const int i, const int j, const int k, const int l,
-	  const double xi, const double xj, const double xk, const double xl,
-	  const double alphai, const double alphaj, const double alphak, const double alphal)
-  {
+void Rys2EIntegral::recur(
+  const double t, 
+  const int i, const int j, const int k, const int l,
+  const double xi, const double xj, const double xk, const double xl,
+	const double alphai, const double alphaj, const double alphak, const double alphal)
+{
   /* Form G(n,m)=I(n,0,m,0) intermediate values for a Rys polynomial */
   const int n = i+j;
   const int m = k+l;
@@ -65,14 +66,14 @@ void Rys2EIntegral::recur(const double t,
   if(n > 0) G[1][0] = C*G[0][0];  /* ABD eq 15 */
   if(m > 0) G[0][1] = Cp*G[0][0]; /* ABD eq 16 */
 
-  for(int a=2; a<n+1; a++) G[a][0] = B1*(a-1)*G[a-2][0] + C*G[a-1][0];
-  for(int b=2; b<m+1; b++) G[0][b] = B1p*(b-1)*G[0][b-2] + Cp*G[0][b-1];
+  for(int a = 2; a < n+1; a++) G[a][0] = B1*(a-1)*G[a-2][0] + C*G[a-1][0];
+  for(int b = 2; b < m+1; b++) G[0][b] = B1p*(b-1)*G[0][b-2] + Cp*G[0][b-1];
 
-  if((m==0) || (n==0)) return;
+  if((m == 0) || (n == 0)) return;
 
-  for(int a=1; a<n+1; a++){
+  for(int a=1; a < n+1; a++){
     G[a][1] = a*B00*G[a-1][0] + Cp*G[a][0];
-    for(int b=2; b<m+1; b++)
+    for(int b = 2; b < m+1; b++)
       G[a][b] = B1p*(b-1)*G[a][b-2] + a*B00*G[a-1][b-1] + Cp*G[a][b-1];
   }
 }
@@ -103,11 +104,11 @@ double Rys2EIntegral::int1d(
   return shift(ix, jx, kx, lx, xi-xj, xk-xl);
 }
 
-inline double product_center_1D(double alphaa, double xa, double alphab, double xb)
-{ return (alphaa*xa+alphab*xb)/(alphaa+alphab); }
+inline double product_center_1D(double alpha_a, double x_a, double alpha_b, double x_b)
+{ return (alpha_a*x_a + alpha_b*x_b)/(alpha_a+alpha_b); }
 
 inline double dist2(double x1, double y1, double z1, double x2, double y2, double z2)
-{ return (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)+(z1-z2)*(z1-z2); }
+{ return sq(x1-x2) + sq(y1-y2) + sq(z1-z2); }
 
 double Rys2EIntegral::coulomb_repulsion()
 {
@@ -127,16 +128,12 @@ double Rys2EIntegral::coulomb_repulsion()
   const double xq = product_center_1D(p2.alpha, p2.x, p3.alpha, p3.x);
   const double yq = product_center_1D(p2.alpha, p2.y, p3.alpha, p3.y);
   const double zq = product_center_1D(p2.alpha, p2.z, p3.alpha, p3.z);
-  const double rpq2 = dist2(xp,yp,zp,xq,yq,zq);
+  const double rpq2 = dist2(xp, yp, zp, xq, yq, zq);
 
   const double X = rpq2*rho;
 
-  double *roots = new double [norder];
-  assert(roots);
-
-  double *weights = new double [norder];
-  assert(weights);
-
+  double *roots = new double [norder]; assert(roots);
+  double *weights = new double [norder]; assert(weights);
   RysChebyshev::calculate_rys_roots_and_weights(norder, X, roots, weights);
 
   double sum = 0.0;
@@ -145,11 +142,11 @@ double Rys2EIntegral::coulomb_repulsion()
     const double Ix = int1d(t, p0.l, p1.l, p2.l, p3.l, p0.x, p1.x, p2.x, p3.x, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
     const double Iy = int1d(t, p0.m, p1.m, p2.m, p3.m, p0.y, p1.y, p2.y, p3.y, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
     const double Iz = int1d(t, p0.n, p1.n, p2.n, p3.n, p0.z, p1.z, p2.z, p3.z, p0.alpha, p1.alpha, p2.alpha, p3.alpha);
-    sum = sum + Ix*Iy*Iz*weights[i];
+    sum += Ix*Iy*Iz*weights[i];
   }
 
   if(roots) { delete [] roots; roots = 0; }
   if(weights) { delete [] weights; weights = 0; }
 
-  return 2*sqrt(rho/M_PI) * p0.norm*p1.norm*p2.norm*p3.norm * sum; /* ABD eq 5 & 9 */
+  return 2*sqrt(rho/M_PI) * p0.norm * p1.norm * p2.norm * p3.norm * sum; /* ABD eq 5 & 9 */
 }

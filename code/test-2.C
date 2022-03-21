@@ -41,7 +41,7 @@ int main()
     << " Rys: " << coulomb_repulsion(s1, s2, p1, s3) << std::endl
     << " Rys: " << coulomb_repulsion(s1, s2, p2, s3) << std::endl
     << " Rys: " << coulomb_repulsion(s1, s2, p3, s3) << std::endl
-    << " Rys: " << coulomb_repulsion(f1, f2, f3, f4) << std::endl
+    << " Rys: " << coulomb_repulsion(s1, f2, f3, f4) << std::endl
     << std::endl;
 
   libint_test();
@@ -58,7 +58,7 @@ int main()
     Rys2EIntegral rys2e_3(s1, s2, p3, s3);
     std::cout << " myRys: " << rys2e_3.coulomb_repulsion() << std::endl;
 
-    Rys2EIntegral rys2e_4(f1, f2, f3, f4);
+    Rys2EIntegral rys2e_4(s1, f2, f3, f4);
     std::cout << " myRys: " << rys2e_4.coulomb_repulsion() << std::endl;
   }
 

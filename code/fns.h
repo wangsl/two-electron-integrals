@@ -3,10 +3,10 @@
 #ifndef FNS_H
 #define FNS_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <assert.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cassert>
 
 #define UNDEF_VAL -1.0e16
 #define SMALL_VAL 1.0e-10
@@ -78,15 +78,15 @@ inline int min(int x, int y) { return x < y ? x : y; }
 inline int max(int x, int y) { return x > y ? x : y; }
 inline double min(double x, double y) { return x < y ? x : y; }
 inline double max(double x, double y) { return x > y ? x : y; }
-inline double sim_round(double x) { return floor(x+0.5); }
-inline double fractional_part(double x) { return x - sim_round(x); }
+inline double my_round(double x) { return floor(x+0.5); }
+inline double fractional_part(double x) { return x - my_round(x); }
 inline int is_almost_zero(double x) { return fabs(x) < SMALL_VAL; }
 inline double zero_if_almost_zero(double x) { return is_almost_zero(x) ? 0 : x; }
 inline int are_approximately_equal(double x, double y) { return is_almost_zero(x-y); }
-inline int is_integer(double x) { return are_approximately_equal(x, sim_round(x)); }
+inline int is_integer(double x) { return are_approximately_equal(x, my_round(x)); }
 inline int is_perfect_square(double x) { return is_integer(sqrt(x)); }
 inline int is_perfect_cube(double x) { return is_integer(pow(x,1.0/3.0)); }
-inline double periodic(double x, double l) { return x - l*sim_round(x/l); }
+inline double periodic(double x, double l) { return x - l*my_round(x/l); }
 inline double ex_x(double x) { return exp(-x)/x; }
 inline double ex2_x2(double x) { return ex_x(x*x); }
 
