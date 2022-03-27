@@ -23,7 +23,7 @@ X[n_, x_] :=
     Return[s];
   ]
 
-RsyRootsWeights[x1_, ntotal_] :=   
+RsyRootsWeights[x1_, ntotal_, getU_:0] :=   
   Module[{x, t, P, i, n, c, p, s, R, k1, alpha1, l, s1, k2, alpha2, s2, R0, S0},
     x = SetPrecision[x1, 512];
     P = Table[0, {i, 1, 1000}]; 
@@ -57,7 +57,7 @@ RsyRootsWeights[x1_, ntotal_] :=
         S0[[n-i+1]] = s1+s2;
       ];
     ];
-    Return[{R0, S0}];
+    Return[ If[getU == 0, {R0, S0}, {R0^2/(1-R0^2), S0}] ];
   ];
 
 End[]
