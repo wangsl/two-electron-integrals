@@ -14,7 +14,7 @@ $MaxExtraPrecision = 1024;
 $WorkingPrecision = 512;
 SetOptions[$Output, PageWidth->100];
 
-RysChebyshevFitting[np_, a_, b_, m_] :=
+RysChebyshevFitting[np_, a_, b_, m_, fitU_:0] :=
   Module[{t, k, x, T, W, TW, i, idx, cT, cW, j, FitT, FitW},
     t = Table[Cos[(2k+1)/(m+1) Pi/2], {k, 0, m}]; 
     x = 1/2(a+b) + 1/2(b-a) t; 
@@ -22,7 +22,7 @@ RysChebyshevFitting[np_, a_, b_, m_] :=
     T = Table[0, {i, 1, m+1}];
     W = Table[0, {i, 1, m+1}];
     For[i=1, i<=Length[x], i++,
-      TW = RsyRootsWeights[x[[i]], np];
+      TW = RsyRootsWeights[x[[i]], np, fitU];
       T[[i]] = TW[[1]];
       W[[i]] = TW[[2]];
     ]

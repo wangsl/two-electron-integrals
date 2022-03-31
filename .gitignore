@@ -9,3 +9,5 @@ depend
 .vscode
 note.txt
 fmt.F
+work
+slurm-*.out
