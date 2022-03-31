@@ -1,6 +1,8 @@
 
 <<RysRootsWeights`
 
+SetOptions[$Output, PageWidth->100];
+
 n = 5;
 
 TW = RsyRootsWeights[5.0, n];

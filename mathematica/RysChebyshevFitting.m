@@ -1,6 +1,8 @@
 
 BeginPackage["RysChebyshevFitting`"]
 
+(* Reference: M. M. Shepherd and J. G. Laframboise Mathematics of Computation, v36, p249 (1981) *)
+
 RysChebyshevFitting::usage = "Chebyshev polynomails fitting for Rys polynomials roots and weights"
 
 Begin["`private`"]
