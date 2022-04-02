@@ -11,8 +11,6 @@ void GaussHermite::setup_parameters()
 {
   if(has_setup_parameters) return;
 
-  // std::cout << " GaussHermite::setup_parameters" << std::endl;
-
   has_setup_parameters = 1;
 
   int i = -1;
@@ -39,6 +37,6 @@ void GaussHermite::setup_parameters()
 }
 
 const GaussHermiteRootAndWeights *GaussHermite::parameter(const int n_order)
-  { return &parameters[n_order-1]; }
+{ return &parameters[n_order-1]; }
 
 #undef GAUSS_HERMITE

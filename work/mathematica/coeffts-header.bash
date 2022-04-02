@@ -23,17 +23,17 @@ const struct {
   const double x_min = ${x_min};
   const double x_max = ${x_max};
   const double roots_coefficients[$n] = {
-$(egrep "^Coeffs: " $log_file | awk '{printf "%+36s, // %3d%3d%3d %4d\n", $5, $2, $3, $4, NR}')
+$(cat $log_file | sed -e 's/E /E0 /' | egrep "^Coeffs: " | awk '{printf "%+36s, // %3d%3d%3d %4d\n", $5, $2, $3, $4, NR}')
   };
   const double weights_coefficients[$n] = {
-$(egrep "^Coeffs: " $log_file | awk '{printf "%+36s, // %3d%3d%3d %4d\n", $6, $2, $3, $4, NR}')
+$(cat $log_file | sed -e 's/E /E0 /' | egrep "^Coeffs: " | awk '{printf "%+36s, // %3d%3d%3d %4d\n", $6, $2, $3, $4, NR}')
   };
-} rys_chebyshev_coeffs_u_${rys_order}_${i};
+} rys_chebyshev_coeffs_t_${rys_order}_${i};
 EOF
 }
 
 for((i=0; i<=155; i++)); do
-  slurm_log="slurm-17060946_${i}.out"
+  slurm_log="slurm-17060945_${i}.out"
   if [ ! -e ${slurm_log} ]; then
     echo "${slurm_log} does not exist"
     exit 
