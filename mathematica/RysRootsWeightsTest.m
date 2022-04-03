@@ -1,24 +1,31 @@
 
 <<RysRootsWeights`
 
-SetOptions[$Output, PageWidth->100];
+SetOptions[$Output, PageWidth->120];
 
-n = 5;
+n = 12;
 
 (* H. F. King and M. Dupuis, J. Comput. Phys. 21, 144 (1976) 
   Table I: Rys Roots and Weights for n = 5
 *)
+x = 159;
 
-TW = RsyRootsWeights[5.0, n];
+TW = RsyRootsWeights[x, n];
+
+U = TW[[1]]^2/(1-TW[[1]]^2);
+
 For[i=1, i<=n, i++,
   If[i == 1, Print[]];
   Print[ "RW ", 
         NumberForm[TW[[1]][[i]], {30, 26}, ScientificNotationThreshold->{0, 0}, NumberFormat->(Row[{#1, "E", #3}] &)], " "
+        NumberForm[U[[i]], {30, 26}, ScientificNotationThreshold->{0, 0}, NumberFormat->(Row[{#1, "E", #3}] &)], " "
         NumberForm[TW[[2]][[i]], {30, 26}, ScientificNotationThreshold->{0, 0}, NumberFormat->(Row[{#1, "E", #3}] &)]
         ];
 ]
 
-TW = RsyRootsWeights[5.0, n, 1];
+Quit[];
+
+TW = RsyRootsWeights[x, n, 1];
 For[i=1, i<=n, i++,
   If[i == 1, Print[]];
   Print[ "UW ", 

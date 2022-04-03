@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 #include "gauss_hermite.h"
 
 #define GAUSS_HERMITE(X) \
@@ -12,8 +13,9 @@ void GaussHermite::setup_parameters()
   if(has_setup_parameters) return;
 
   has_setup_parameters = 1;
-
-  int i = -1;
+  
+  int &i = parameters_length;
+  i = -1;
   i++; GaussHermite::parameters[i] = GAUSS_HERMITE(gauss_hermite_2);
   i++; GaussHermite::parameters[i] = GAUSS_HERMITE(gauss_hermite_4);
   i++; GaussHermite::parameters[i] = GAUSS_HERMITE(gauss_hermite_6);
@@ -37,6 +39,9 @@ void GaussHermite::setup_parameters()
 }
 
 const GaussHermiteRootAndWeights *GaussHermite::parameter(const int n_order)
-{ return &parameters[n_order-1]; }
+{
+  assert(n_order < parameters_length); 
+  return &parameters[n_order-1];
+}
 
 #undef GAUSS_HERMITE

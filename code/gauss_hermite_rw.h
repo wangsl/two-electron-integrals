@@ -1,9 +1,11 @@
 #ifndef GAUSS_HERMITE_RW_H
 #define GAUSS_HERMITE_RW_H
 
+#define GAUSS_HERMITE_X_MIN 120.0
+
 const struct {
   const int order = 1;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[1] = {
     0.70710678118654752440084436210485, // 2 1
   };
@@ -14,7 +16,7 @@ const struct {
 
 const struct {
   const int order = 2;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[2] = {
     0.52464762327529031788406025383474, // 4 1
     1.65068012388578455588334111112075, // 4 2
@@ -27,7 +29,7 @@ const struct {
 
 const struct {
   const int order = 3;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[3] = {
     0.43607741192761650867921594825062, // 6 1
     1.33584907401369694971489528297037, // 6 2
@@ -42,7 +44,7 @@ const struct {
 
 const struct {
   const int order = 4;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[4] = {
     0.38118699020732211685471888558369, // 8 1
     1.15719371244678019472076577906310, // 8 2
@@ -59,7 +61,7 @@ const struct {
 
 const struct {
   const int order = 5;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[5] = {
     0.34290132722370460878916502555726, // 10 1
     1.03661082978951365417749191675921, // 10 2
@@ -78,7 +80,7 @@ const struct {
 
 const struct {
   const int order = 6;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[6] = {
     0.31424037625435911127661163409534, // 12 1
     0.94778839124016374370457813106014, // 12 2
@@ -99,7 +101,7 @@ const struct {
 
 const struct {
   const int order = 7;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[7] = {
     0.29174551067256207844611307579938, // 14 1
     0.87871378732939941611467931186080, // 14 2
@@ -122,7 +124,7 @@ const struct {
 
 const struct {
   const int order = 8;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[8] = {
     0.27348104613815245215828040196502, // 16 1
     0.82295144914465589258245449673394, // 16 2
@@ -147,7 +149,7 @@ const struct {
 
 const struct {
   const int order = 9;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[9] = {
     0.25826775051909675925811609871058, // 18 1
     0.77668291926741166131665946228385, // 18 2
@@ -174,7 +176,7 @@ const struct {
 
 const struct {
   const int order = 10;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[10] = {
     0.24534070830090124990383653063362, // 20 1
     0.73747372854539435870560514425210, // 20 2
@@ -203,7 +205,7 @@ const struct {
 
 const struct {
   const int order = 11;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[11] = {
     0.23417913993099063509831078268364, // 22 1
     0.70368609717000693216644843204602, // 22 2
@@ -234,7 +236,7 @@ const struct {
 
 const struct {
   const int order = 12;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[12] = {
     0.22441454747251558515113671552651, // 24 1
     0.67417110703721223600024592373001, // 24 2
@@ -267,7 +269,7 @@ const struct {
 
 const struct {
   const int order = 13;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[13] = {
     0.21577785624346343464515801219538, // 26 1
     0.64809521399344830968252143828700, // 26 2
@@ -302,7 +304,7 @@ const struct {
 
 const struct {
   const int order = 14;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[14] = {
     0.20806738269073686914100435758423, // 28 1
     0.62483671950520922740624699252930, // 28 2
@@ -339,7 +341,7 @@ const struct {
 
 const struct {
   const int order = 15;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[15] = {
     0.20112857654887148554576301324369, // 30 1
     0.60392105862555230777815567875734, // 30 2
@@ -378,7 +380,7 @@ const struct {
 
 const struct {
   const int order = 16;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[16] = {
     0.19484074156939932670874128953220, // 32 1
     0.58497876543593244846695754401146, // 32 2
@@ -419,7 +421,7 @@ const struct {
 
 const struct {
   const int order = 17;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[17] = {
     0.18910806052714248128971468632768, // 34 1
     0.56771726855487458915055456541493, // 34 2
@@ -462,7 +464,7 @@ const struct {
 
 const struct {
   const int order = 18;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[18] = {
     0.18385336710581280037179096148160, // 36 1
     0.55190143329042282350275056293385, // 36 2
@@ -507,7 +509,7 @@ const struct {
 
 const struct {
   const int order = 19;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[19] = {
     0.17901372329587749553294097571688, // 38 1
     0.53733981087098349820428662172303, // 38 2
@@ -554,7 +556,7 @@ const struct {
 
 const struct {
   const int order = 20;
-  const double x_min = 95.0;
+  const double x_min = GAUSS_HERMITE_X_MIN;
   const double roots[20] = {
     0.17453721459758238348945068835885, // 40 1
     0.52387471383227719261491711165466, // 40 2
@@ -600,6 +602,8 @@ const struct {
     2.59104371384708147350220273893221E-29, // 40 20
   };
 } gauss_hermite_40;
+
+#undef GAUSS_HERMITE_X_MIN
 
 #endif /* GAUSS_HERMITE_RW_H */
 

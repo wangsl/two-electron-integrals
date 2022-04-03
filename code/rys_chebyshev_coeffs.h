@@ -26,7 +26,6 @@ namespace RysChebyshev {
                                        const int need_t = 0);
   void test();
   void initialize();
-  static void setup_parameters_t();
   static void setup_parameters_u();
 };
 

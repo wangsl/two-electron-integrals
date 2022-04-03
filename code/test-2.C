@@ -18,6 +18,8 @@ int main()
 {
   std::cout.precision(16);
 
+  RysChebyshev::test();
+
   const PrimitiveGaussian s1(0, 0, 0, 0.1234, 0.7, 2.1, 1.2);
   const PrimitiveGaussian s2(0, 0, 0, 0.345, -1.0, 1.9, 1.0);
   const PrimitiveGaussian s3(0, 0, 0, 0.1245, 0.8, 2.02, 0.8);
