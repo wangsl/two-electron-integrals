@@ -50,12 +50,12 @@ void Rys2EIntegral::recur(
 	const double alphai, const double alphaj, const double alphak, const double alphal)
 {
   /* Form G(n,m)=I(n,0,m,0) intermediate values for a Rys polynomial */
-  const int n = i+j;
-  const int m = k+l;
-  const double A = alphai+alphaj;
-  const double B = alphak+alphal;
-  const double Px = (alphai*xi+alphaj*xj)/A;
-  const double Qx = (alphak*xk+alphal*xl)/B;
+  const int n = i + j;
+  const int m = k + l;
+  const double A = alphai + alphaj;
+  const double B = alphak + alphal;
+  const double Px = (alphai*xi + alphaj*xj)/A;
+  const double Qx = (alphak*xk + alphal*xl)/B;
 
   recur_factors_gamess(t, A, B, Px, Qx, xi, xk);
 
@@ -88,8 +88,8 @@ double Rys2EIntegral::shift(
   for(int m = 0; m < l+1; m++){
     double ijm0 = 0.0;
     for(int n = 0; n < j+1; n++) /* I(i,j,m,0)<-I(n,0,m,0)  */
-      ijm0 += binomial(j,n)*pow(xij,j-n)*G[n+i][m+k];
-    ijkl += binomial(l,m)*pow(xkl,l-m)*ijm0; /* I(i,j,k,l)<-I(i,j,m,0) */
+      ijm0 += binomial(j,n)*pow(xij, j-n)*G[n+i][m+k];
+    ijkl += binomial(l,m)*pow(xkl, l-m)*ijm0; /* I(i,j,k,l)<-I(i,j,m,0) */
   } 
   return ijkl;
 }

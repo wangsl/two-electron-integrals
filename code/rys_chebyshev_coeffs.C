@@ -182,18 +182,28 @@ static void RysChebyshev::setup_parameters_u()
   i++; RysChebyshev::parameters[i] = RYS_CHEBYSHEV(rys_chebyshev_coeffs_u_12_10);    // 153 
   i++; RysChebyshev::parameters[i] = RYS_CHEBYSHEV(rys_chebyshev_coeffs_u_12_11);    // 154 
   i++; RysChebyshev::parameters[i] = RYS_CHEBYSHEV(rys_chebyshev_coeffs_u_12_12);    // 155 
+  i++;
 }
 
 #undef RYS_CHEBYSHEV
 
 const RysChebyshevCoeffs *RysChebyshev::parameter(const int n_rys, const double x)
 {
+  // This is based on x block size is 13 and block range is 10
+  const int index = (n_rys-1)*13 + int(x/10);
+  assert(index < parameters_length);
+  const RysChebyshevCoeffs &p = parameters[index];
+  assert(n_rys == p.rys_order && p.x_min <= x && x <= p.x_max);
+  return &p;
+
+  /*
   for(int i = 0; i < parameters_length; i++) {
     const RysChebyshevCoeffs &p = parameters[i];
     if(n_rys == p.rys_order && p.x_min <= x && x <= p.x_max) 
       return &p;
   }
   return 0;
+  */
 }
 
 void RysChebyshev::initialize()
@@ -293,7 +303,7 @@ void RysChebyshev::calculate_rys_roots_and_weights(
 
 void RysChebyshev::test()
 {
-  const int rys_order = 12;
+  const int rys_order = 5;
 
   double *roots = new double [rys_order];
   assert(roots);

@@ -3,12 +3,12 @@
 
 SetOptions[$Output, PageWidth->120];
 
-n = 12;
+n = 5;
 
 (* H. F. King and M. Dupuis, J. Comput. Phys. 21, 144 (1976) 
   Table I: Rys Roots and Weights for n = 5
 *)
-x = 159;
+x = 10;
 
 TW = RsyRootsWeights[x, n];
 
